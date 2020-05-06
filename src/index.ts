@@ -3,13 +3,14 @@ import * as github from '@actions/github';
 
 const getVersion = async (version: string): Promise<Version> => {
     const numbers = version.split('.');
+    console.log("numbers:", numbers);
     return {
         major: parseInt(version[0]),
         minor: parseInt(version[1]),
         patch: parseInt(version[2]),
         manifestSafeVersionString:
-            numbers[0].padStart(2, "0") +
-            numbers[1].padStart(2, "0") +
+            numbers[0].padStart(2, "0") + "." +
+            numbers[1].padStart(2, "0") + "." +
             numbers[2].padStart(2, "0")
     };
 }
@@ -34,6 +35,7 @@ async function run() {
         if (branchName.match(regex)){
             const versionString = branchName.split('/')[1];
             const version = await getVersion(versionString);
+            console.log("version: ", version);
             core.setOutput("major", version.major);
             core.setOutput("minor", version.minor);
             core.setOutput("patch", version.patch);

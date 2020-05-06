@@ -49,12 +49,13 @@ var getVersion = function (version) { return __awaiter(void 0, void 0, void 0, f
     var numbers;
     return __generator(this, function (_a) {
         numbers = version.split('.');
+        console.log("numbers:", numbers);
         return [2 /*return*/, {
                 major: parseInt(version[0]),
                 minor: parseInt(version[1]),
                 patch: parseInt(version[2]),
-                manifestSafeVersionString: numbers[0].padStart(2, "0") +
-                    numbers[1].padStart(2, "0") +
+                manifestSafeVersionString: numbers[0].padStart(2, "0") + "." +
+                    numbers[1].padStart(2, "0") + "." +
                     numbers[2].padStart(2, "0")
             }];
     });
@@ -84,6 +85,7 @@ function run() {
                     return [4 /*yield*/, getVersion(versionString)];
                 case 1:
                     version = _a.sent();
+                    console.log("version: ", version);
                     core.setOutput("major", version.major);
                     core.setOutput("minor", version.minor);
                     core.setOutput("patch", version.patch);
