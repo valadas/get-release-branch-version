@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
-      - uses: valadas/get-release-branch-version
+      - uses: valadas/get-release-branch-version@v1
         id: branchVersion
       - name: Dump the version info
         env:
