@@ -1,0 +1,30 @@
+{
+  "name": "get-release-branch-version",
+  "version": "1.0.0",
+  "description": "Gets the version number of a release branch",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valadas/get-release-branch-version.git"
+  },
+  "keywords": [
+    "github",
+    "action",
+    "get",
+    "branch",
+    "version"
+  ],
+  "author": "valadas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valadas/get-release-branch-version/issues"
+  },
+  "homepage": "https://github.com/valadas/get-release-branch-version#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^2.1.1"
+  }
+}

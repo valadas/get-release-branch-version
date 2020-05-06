@@ -1,6 +1,15 @@
 name: 'get-release-branch-version'
 description: 'Gets the version number of a release branch such as release/1.2.3'
 author: 'valadas'
+outputs:
+  major:
+    description: 'The major version number such as 1 in release/1.2.3'
+  minor:
+    description: 'The minor version number such as 2 in release/1.2.3'
+  patch:
+    description: 'The patch version number such as 3 in release/1.2.3'
+  manifestSafeVersionString:
+    description: 'A version string that is save to use in Dnn manifests'
 runs:
   using: 'node12'
   main: './dist/index.js'
