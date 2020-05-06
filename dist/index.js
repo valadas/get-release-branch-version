@@ -67,7 +67,6 @@ function run() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 4, , 5]);
-                    core.setCommandEcho(true);
                     event_1 = github.context.eventName;
                     if (event_1 !== "create") {
                         core.setFailed("This action is only meant to be run on create");
@@ -94,9 +93,7 @@ function run() {
                 case 2:
                     core.setFailed("the branch name does not match the patter 'release/nn.nn.nn'");
                     _a.label = 3;
-                case 3:
-                    core.setCommandEcho(false);
-                    return [3 /*break*/, 5];
+                case 3: return [3 /*break*/, 5];
                 case 4:
                     error_1 = _a.sent();
                     core.setFailed(error_1);
