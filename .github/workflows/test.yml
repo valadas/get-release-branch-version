@@ -13,6 +13,18 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo $GITHUB_CONTEXT
+      - name: dump the event
+        env:
+          EVENT: ${{ github.event }}
+        run: echo $EVENT
+      - name: dump the event ref_type
+        env:
+          REF_TYPE: ${{ github.event.ref_type }}
+        run: echo $REF_TYPE
+      - name: dump the ref
+        env:
+          REF: ${{ github.event.ref }}
+        run: echo $REF
       - name: Did we just create a branch?
         if: ${{ github.event.ref_type == 'branch' }}
         run: echo Yes we just created a branch
