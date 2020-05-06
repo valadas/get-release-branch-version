@@ -46,4 +46,4 @@ jobs:
           MINOR: ${{ steps.branchVersion.outputs.minor }}
           PATCH: ${{ steps.branchVersion.outputs.patch }}
           MANIFEST_SAFE_VERSION_STRING: ${{ steps.branchVersion.outputs.manifestSafeVersionString }}
-        run: "echo major: $MAJOR minor: $MINOR patch: $PATCH manifestSaveVersionString: $MANIFEST_SAFE_VERSION_STRING"
+        run: "echo major: $MAJOR minor: $MINOR patch: $PATCH manifestSafeVersionString: $MANIFEST_SAFE_VERSION_STRING"
