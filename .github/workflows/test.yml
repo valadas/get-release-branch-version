@@ -36,3 +36,14 @@ jobs:
         env:
           REF: ${{ github.event.ref }}
         run: echo $REF
+      - name: Run the actual action
+        if: ${{ github.event.ref_type == 'branch' && startsWith(github.event.ref, 'release/') }}
+        uses: ./
+        id: branchVersion
+      - name: Dump the version info from the action outputs
+        env:
+          MAJOR: ${{ steps.branchVersion.major }}
+          MINOR: ${{ steps.branchVersion.minor }}
+          PATCH: ${{ steps.branchVersion.patch }}
+          MANIFEST_SAFE_VERSION_STRING: ${{ steps.branchVersion.manifestSafeVersionString }}
+        run: "echo major: $MAJOR minor: $MINOR patch: $PATCH manifestSaveVersionString: $MANIFEST_SAFE_VERSION_STRING"
