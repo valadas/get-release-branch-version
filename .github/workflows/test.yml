@@ -13,3 +13,14 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo $GITHUB_CONTEXT
+      - name: Did we just create a branch?
+        if: ${{ github.event.ref_type == 'branch' }}
+        run: echo Yes we just created a branch
+      - name: Is it a release branch?
+        if: ${{ github.event.ref_type == 'branch' && contains(github.event.ref_type, 'release/') }}
+        run: echo Yes we are on a release branch
+      - name: Spit out the ref to the action then
+        if: ${{ github.event.ref_type == 'branch' && contains(github.event.ref_type, 'release/') }}
+        env:
+          REF: ${{ github.event.ref }}
+        run: echo $REF
