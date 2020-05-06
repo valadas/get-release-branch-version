@@ -7,8 +7,16 @@ async function run() {
         const event = github.context.eventName;
         if (event !== "create"){
             core.setFailed("This action is only meant to be run on create");
+            return;
         }
-        console.log(github.context);
+        const refType = github.context.payload.ref_type;
+        if (refType !== "branch"){
+            core.setFailed("This action is only meant to be run on the creation of a new branch");
+            return;
+        }
+
+        // Grab the branch version
+        console.log(github.context.payload.ref);
 
         core.setCommandEcho(false);
     } catch (error) {

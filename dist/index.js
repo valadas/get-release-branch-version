@@ -47,15 +47,22 @@ var core = __importStar(require("@actions/core"));
 var github = __importStar(require("@actions/github"));
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var event_1;
+        var event_1, refType;
         return __generator(this, function (_a) {
             try {
                 core.setCommandEcho(true);
                 event_1 = github.context.eventName;
                 if (event_1 !== "create") {
                     core.setFailed("This action is only meant to be run on create");
+                    return [2 /*return*/];
                 }
-                console.log(github.context);
+                refType = github.context.payload.ref_type;
+                if (refType !== "branch") {
+                    core.setFailed("This action is only meant to be run on the creation of a new branch");
+                    return [2 /*return*/];
+                }
+                // Grab the branch version
+                console.log(github.context.payload.ref);
                 core.setCommandEcho(false);
             }
             catch (error) {
