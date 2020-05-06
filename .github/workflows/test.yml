@@ -15,8 +15,8 @@ jobs:
         run: echo $GITHUB_CONTEXT
       - name: dump the event
         env:
-          EVENT: ${{ github.event }}
-        run: echo $EVENT
+          GITHUB_EVENT: ${{ toJson(github.event) }}
+        run: echo $GITHUB_EVENT
       - name: dump the event ref_type
         env:
           REF_TYPE: ${{ github.event.ref_type }}
