@@ -45,30 +45,62 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core = __importStar(require("@actions/core"));
 var github = __importStar(require("@actions/github"));
+var getVersion = function (version) { return __awaiter(void 0, void 0, void 0, function () {
+    var numbers;
+    return __generator(this, function (_a) {
+        numbers = version.split('.');
+        return [2 /*return*/, {
+                major: parseInt(version[0]),
+                minor: parseInt(version[1]),
+                patch: parseInt(version[2]),
+                manifestSafeVersionString: numbers[0].padStart(2, "0") +
+                    numbers[1].padStart(2, "0") +
+                    numbers[2].padStart(2, "0")
+            }];
+    });
+}); };
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var event_1, refType;
+        var event_1, refType, branchName, regex, versionString, version, error_1;
         return __generator(this, function (_a) {
-            try {
-                core.setCommandEcho(true);
-                event_1 = github.context.eventName;
-                if (event_1 !== "create") {
-                    core.setFailed("This action is only meant to be run on create");
-                    return [2 /*return*/];
-                }
-                refType = github.context.payload.ref_type;
-                if (refType !== "branch") {
-                    core.setFailed("This action is only meant to be run on the creation of a new branch");
-                    return [2 /*return*/];
-                }
-                // Grab the branch version
-                console.log(github.context.payload.ref);
-                core.setCommandEcho(false);
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    core.setCommandEcho(true);
+                    event_1 = github.context.eventName;
+                    if (event_1 !== "create") {
+                        core.setFailed("This action is only meant to be run on create");
+                        return [2 /*return*/];
+                    }
+                    refType = github.context.payload.ref_type;
+                    if (refType !== "branch") {
+                        core.setFailed("This action is only meant to be run on the creation of a new branch");
+                        return [2 /*return*/];
+                    }
+                    branchName = github.context.payload.ref;
+                    regex = new RegExp(/^release\/\d{1,2}\.\d{1,2}\.\d{1,2}$/);
+                    if (!branchName.match(regex)) return [3 /*break*/, 2];
+                    versionString = branchName.split('/')[1];
+                    return [4 /*yield*/, getVersion(versionString)];
+                case 1:
+                    version = _a.sent();
+                    core.setOutput("major", version.major);
+                    core.setOutput("minor", version.minor);
+                    core.setOutput("patch", version.patch);
+                    core.setOutput("manifestSafeVersionString", version.manifestSafeVersionString);
+                    return [3 /*break*/, 3];
+                case 2:
+                    core.setFailed("the branch name does not match the patter 'release/nn.nn.nn'");
+                    _a.label = 3;
+                case 3:
+                    core.setCommandEcho(false);
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    core.setFailed(error_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
-            catch (error) {
-                core.setFailed(error);
-            }
-            return [2 /*return*/];
         });
     });
 }
