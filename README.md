@@ -1,13 +1,32 @@
 # get-release-branch-version
 Gets the version number of a release branch such as release/1.2.3
 
-This action should only be run on release branches such as in:
+This action should only be run on release branches. Here is a suggested usage with a check:
 
 ```yaml
-on:
-  create:
-    branches: 'release/*'
+name: Get release branch
+on: create
+
+jobs:
+  get-release:
+    name: Get the release branch version number
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - uses: valadas/get-release-branch-version
+        id: branchVersion
+      - name: Dump the version info
+        env:
+          MAJOR: ${{ steps.branchVersion.major }}
+          MINOR: ${{ steps.branchVersion.minor }}
+          PATCH: ${{ steps.branchVersion.patch }}
+          MANIFEST_SAFE_VERSION_STRING: ${{ steps.branchVersion.manifestSafeVersionString }}
+        run: "echo major: $MAJOR minor: $MINOR patch: $PATCH manifestSaveVersionString: $MANIFEST_SAFE_VERSION_STRING"
 ```
+
+Obviously replace the **Dump step** with something more useful for your process.
 
 It will output the version number of the release branch:
 
