@@ -1,0 +1,6 @@
+name: 'get-release-branch-version'
+description: 'Gets the version number of a release branch such as release/1.2.3'
+author: 'valadas'
+runs:
+  using: 'node12'
+  main: './dist/index.js'
