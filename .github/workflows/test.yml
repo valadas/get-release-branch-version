@@ -1,6 +1,5 @@
 name: 'Test the action'
-on:
-  create
+on: create
 
 jobs:
   test:
