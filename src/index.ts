@@ -5,9 +5,9 @@ const getVersion = async (version: string): Promise<Version> => {
     const numbers = version.split('.');
     console.log("numbers:", numbers);
     return {
-        major: parseInt(version[0]),
-        minor: parseInt(version[1]),
-        patch: parseInt(version[2]),
+        major: parseInt(numbers[0]),
+        minor: parseInt(numbers[1]),
+        patch: parseInt(numbers[2]),
         manifestSafeVersionString:
             numbers[0].padStart(2, "0") + "." +
             numbers[1].padStart(2, "0") + "." +
