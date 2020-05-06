@@ -5,7 +5,11 @@ async function run() {
     try {
         core.setCommandEcho(true);
         const event = github.context.eventName;
-        console.log(event);
+        if (event !== "create"){
+            core.setFailed("This action is only meant to be run on create");
+        }
+        console.log(github.context);
+
         core.setCommandEcho(false);
     } catch (error) {
         core.setFailed(error);

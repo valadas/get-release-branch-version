@@ -52,7 +52,10 @@ function run() {
             try {
                 core.setCommandEcho(true);
                 event_1 = github.context.eventName;
-                console.log(event_1);
+                if (event_1 !== "create") {
+                    core.setFailed("This action is only meant to be run on create");
+                }
+                console.log(github.context);
                 core.setCommandEcho(false);
             }
             catch (error) {
