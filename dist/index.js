@@ -25277,9 +25277,9 @@ var getVersion = function (version) { return __awaiter(void 0, void 0, void 0, f
                 major: parseInt(version[1]),
                 minor: parseInt(version[2]),
                 patch: parseInt(version[3]),
-                manifestSafeVersionString: version[0].padStart(2, "0") + "." +
-                    version[1].padStart(2, "0") + "." +
-                    version[2].padStart(2, "0")
+                manifestSafeVersionString: version[1].padStart(2, "0") + "." +
+                    version[2].padStart(2, "0") + "." +
+                    version[3].padStart(2, "0")
             }];
     });
 }); };
