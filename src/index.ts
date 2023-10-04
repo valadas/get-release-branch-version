@@ -42,7 +42,7 @@ async function run() {
         else{
             core.setFailed(`The branch name does not match the pattern 'release/nn.nn.nn' or 'release-nn.nn.nn', received ${branchName}`);
         }
-    } catch (error) {
+    } catch (error: any) {
         core.setFailed(error);
     }
 }
