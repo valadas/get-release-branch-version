@@ -1,17 +1,16 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 
-const getVersion = async (version: string): Promise<Version> => {
-    const numbers = version.split('.');
-    console.log("numbers:", numbers);
+const getVersion = async (version: Array<any>): Promise<Version> => {
+    console.log("version:", version);
     return {
-        major: parseInt(numbers[0]),
-        minor: parseInt(numbers[1]),
-        patch: parseInt(numbers[2]),
+        major: parseInt(version[1]),
+        minor: parseInt(version[2]),
+        patch: parseInt(version[3]),
         manifestSafeVersionString:
-            numbers[0].padStart(2, "0") + "." +
-            numbers[1].padStart(2, "0") + "." +
-            numbers[2].padStart(2, "0")
+            version[0].padStart(2, "0") + "." +
+            version[1].padStart(2, "0") + "." +
+            version[2].padStart(2, "0")
     };
 }
 
@@ -30,10 +29,10 @@ async function run() {
 
         // Grab the branch version
         const branchName: string = github.context.payload.ref;
-        const regex = new RegExp(/^release\/\d{1,2}\.\d{1,2}\.\d{1,2}$/);
-        if (branchName.match(regex)){
-            const versionString = branchName.split('/')[1];
-            const version = await getVersion(versionString);
+        const regex = new RegExp(/^release[-\/](\d{1,2})\.(\d{1,2})\.(\d{1,2})$/);
+        const releaseInfo = branchName.match(regex)
+        if (releaseInfo){
+            const version = await getVersion(releaseInfo);
             console.log("version: ", version);
             core.setOutput("major", version.major);
             core.setOutput("minor", version.minor);
