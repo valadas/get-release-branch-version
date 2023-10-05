@@ -1,7 +1,7 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 
-const getVersion = async (version: Array<any>): Promise<Version> => {
+const getVersion = async (version: RegExpMatchArray): Promise<Version> => {
     console.log("version:", version);
     return {
         major: parseInt(version[1]),
