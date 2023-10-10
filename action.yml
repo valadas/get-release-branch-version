@@ -11,5 +11,5 @@ outputs:
   manifestSafeVersionString:
     description: 'A version string that is save to use in Dnn manifests'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: './dist/index.js'

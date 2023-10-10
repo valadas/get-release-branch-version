@@ -29,15 +29,15 @@ jobs:
         if: ${{ github.event.ref_type == 'branch' }}
         run: echo Yes we just created a branch
       - name: Is it a release branch?
-        if: ${{ github.event.ref_type == 'branch' && contains(github.event.ref, 'release/') }}
+        if: ${{ github.event.ref_type == 'branch' && ( contains(github.event.ref, 'release/') || contains(github.event.ref, 'release-') ) }}
         run: echo Yes we are on a release branch
       - name: Spit out the ref to the action then
-        if: ${{ github.event.ref_type == 'branch' && startsWith(github.event.ref, 'release/') }}
+        if: ${{ github.event.ref_type == 'branch' && ( startsWith(github.event.ref, 'release/') || startsWith(github.event.ref, 'release-') ) }}
         env:
           REF: ${{ github.event.ref }}
         run: echo $REF
       - name: Run the actual action
-        if: ${{ github.event.ref_type == 'branch' && startsWith(github.event.ref, 'release/') }}
+        if: ${{ github.event.ref_type == 'branch' && ( startsWith(github.event.ref, 'release/') || startsWith(github.event.ref, 'release-') ) }}
         uses: ./
         id: branchVersion
       - name: Dump the version info from the action outputs
