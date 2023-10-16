@@ -19,10 +19,10 @@ jobs:
         id: branchVersion
       - name: Dump the version info
         env:
-          MAJOR: ${{ steps.branchVersion.major }}
-          MINOR: ${{ steps.branchVersion.minor }}
-          PATCH: ${{ steps.branchVersion.patch }}
-          MANIFEST_SAFE_VERSION_STRING: ${{ steps.branchVersion.manifestSafeVersionString }}
+          MAJOR: ${{ steps.branchVersion.outputs.major }}
+          MINOR: ${{ steps.branchVersion.outputs.minor }}
+          PATCH: ${{ steps.branchVersion.outputs.patch }}
+          MANIFEST_SAFE_VERSION_STRING: ${{ steps.branchVersion.outputs.manifestSafeVersionString }}
         run: "echo major: $MAJOR minor: $MINOR patch: $PATCH manifestSafeVersionString: $MANIFEST_SAFE_VERSION_STRING"
 ```
 
